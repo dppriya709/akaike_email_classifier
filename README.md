@@ -1,143 +1,116 @@
+Email Classifier & PII Masking System - README
+
+🔍 Project Overview
+
+This project was developed as part of the internship assignment for Akaike Technologies. It builds an API that processes support team emails to:
+
+Detect and mask Personally Identifiable Information (PII)
+
+Classify emails into predefined categories (e.g., complaint, query, return)
+
+✅ Step-by-Step Breakdown with PIMTs
+
 Step 1: Define the Problem
-Objective: You are building a system that classifies support team emails and detects and masks Personally Identifiable Information (PII) such as phone numbers, email addresses, Aadhar numbers, etc.
 
-PIMTs:
+Problem: Manual email handling is inefficient and unsafe.
 
-Input: JSON containing the subject and body of the email.
+Input: JSON with subject and body.
 
-Output: JSON containing:
+Output: JSON with:
 
-Masked email content with PII replaced by placeholders.
+Masked content
 
-Detected PII details (type, position, original text).
+PII details (type, position, original)
 
-The predicted category (e.g., Complaint, Query).
+Email category (e.g., Complaint)
 
 Step 2: Collect and Preprocess Data
-Objective: You need a custom labeled dataset with email samples, annotated with PII and their corresponding categories (e.g., complaint, query).
 
-PIMTs:
+Problem: No labeled dataset
 
-Data Collection: You can either use real email data (after ensuring privacy and compliance with regulations) or generate synthetic email data.
+Input: Email dataset
 
-Data Annotation: Label the data manually or use an automated tool to mark PII elements and categorize the emails.
+Methods:
 
-Text Preprocessing:
+Collect real or synthetic emails
 
-Lowercase the text to make it case-insensitive.
+Annotate manually or semi-automatically
 
-Remove stopwords (common words like "the", "is", etc.) to focus on meaningful content.
+Tools: nltk, spaCy, regex
 
-Remove special characters and numbers, leaving only the essential parts of the text for classification.
+Preprocessing Includes:
 
-Tools for Preprocessing: Python libraries like nltk, spaCy, or regex.
+Lowercasing
+
+Stopword removal
+
+Removing special characters and extra numbers
 
 Step 3: Build the PII Masking System
-Objective: Detect PII such as phone numbers, email addresses, Aadhar numbers, dates, and expiry numbers in the email content and replace them with placeholders.
 
-PIMTs:
+Methods:
 
-Use Regular Expressions (Regex):
+Regex patterns for phone, email, Aadhar, dates
 
-Phone numbers: Regex patterns like \b\d{3}[-]?\d{3}[-]?\d{4}\b.
+spaCy for NER (e.g., names, locations)
 
-Emails: Regex patterns like \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b.
+Tools: re, spaCy
 
-Aadhar Numbers: Custom regex pattern like \b\d{4}-\d{4}-\d{4}\b.
+Masking: Replace with placeholders like [email], [phone_number]
 
-Dates/Expiry: Use regex patterns that capture common date formats.
+Step 4: Build the Classification Model
 
-Named Entity Recognition (NER):
+Vectorization: TfidfVectorizer
 
-You can also use spaCy to detect named entities like person names, organizations, and locations, which may sometimes be PII.
+Model: LogisticRegression (or similar)
 
-Masking PII:
+Pipeline:
 
-Once PII is detected, replace the corresponding text with placeholders like [phone], [email], [aadhar_num].
+Train/test split (80/20)
 
-Record details of each PII element (e.g., position in text, original text, type of PII) for future reference.
+Model training and evaluation
 
-Step 4: Build the Text Classification Model
-Objective: Train a model to classify emails into predefined categories like "Complaint", "Query", "Return", etc.
+Step 5: Integrate Everything
 
-PIMTs:
+Pipeline:
 
-Text Representation:
+Input JSON →
 
-Use TfidfVectorizer from sklearn to convert the email text into a matrix of token counts. This helps the model understand the text and learn patterns from it.
+PII Masking →
 
-Model Choice:
+Text Cleaning →
 
-You can use machine learning models like Logistic Regression, Random Forest, or even Deep Learning (e.g., LSTM or BERT) for better performance on text classification.
+Vectorization →
 
-Logistic Regression is a good starting point as it’s simple and works well with features from TfidfVectorizer.
+Classification →
 
-Model Training:
-
-Split your data into training and validation sets (e.g., 80% training, 20% testing).
-
-Train the classifier on the training data and evaluate its performance on the validation set (e.g., accuracy, precision, recall).
-
-Step 5: Integrate PII Masking with Classification
-Objective: Combine the PII detection system and the classification system so that the final output is both masked and categorized.
-
-PIMTs:
-
-Pipeline Structure:
-
-Input: The system receives a JSON with subject and body of the email.
-
-PII Masking: Use regex and NER to identify and mask PII in both the subject and body.
-
-Text Classification: Use the trained model to predict the category of the email (Complaint, Query, etc.).
-
-Output: Return a JSON with:
-
-Masked subject and body.
-
-A list of detected PII, including type, position, and original text.
-
-Predicted category.
+JSON Output
 
 Step 6: Build the API
-Objective: Expose the email classification and PII masking functionality through an API that can be called to classify and mask incoming emails.
 
-PIMTs:
+Framework: FastAPI or Flask
 
-API Framework: Use Flask or FastAPI to build a simple API.
+Endpoint: POST /classify
 
-Flask is easy to set up and works well for small projects.
+Deployment:
 
-FastAPI is faster and designed for modern, high-performance APIs.
+Local for testing
 
-API Endpoints:
-
-POST /classify_email: Accepts a JSON with subject and body and returns the processed output (masked text and classification).
-
-Handle exceptions properly (e.g., if input JSON is invalid).
-
-Deploying the API:
-
-You can deploy the API locally first for testing.
-
-Deploy it on a cloud platform like Heroku, AWS, or Azure for production use.
+Cloud (e.g., Hugging Face Spaces)
 
 Step 7: Testing and Evaluation
-Objective: Ensure the system works correctly and efficiently for real-world use cases.
 
-PIMTs:
+Methods:
 
-Unit Tests: Write tests for each component:
+Unit tests for masking and classification
 
-Test PII masking with a variety of emails.
+Confusion matrix, F1 score for model
 
-Test classification accuracy on unseen data.
+Real-world email testing
 
-Performance Testing: Ensure the system can handle a large number of requests if needed.
+🚀 API Sample Usage
 
-Model Evaluation: If you're using machine learning, evaluate the model's performance (e.g., confusion matrix, F1 score) and improve it by experimenting with hyperparameters or different models.
-
-Real-World Testing: Test the system with real customer emails to ensure accuracy and reliability.
+Endpoint: POST /classify
 
 ## API Endpoints
 
