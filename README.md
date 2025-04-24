@@ -143,9 +143,9 @@ Real-World Testing: Test the system with real customer emails to ensure accuracy
 
 - **POST /classify**
   - Input: Email body as a string.
-  - {
+  -''' {
   "input_email_body": "Dear Support Team, I am writing to complain about the delay in receiving my order. My order number is 1234567890, and my tracking number is A1234B5678. I placed the order on 15th March 2025, but it still hasn't arrived. Please help resolve this issue. My contact number is +1-800-123-4567, and my email is johndoe@example.com. Looking forward to your prompt reply. Regards, John Doe"
-}
+}'''
   - Output: JSON with masked entities and email category.
   - {
   "input_email_body": "Dear Support Team, I am writing to complain about the delay in receiving my order. My order number is 1234567890, and my tracking number is A1234B5678. I placed the order on 15th March 2025, but it still hasn't arrived. Please help resolve this issue. My contact number is +1-800-123-4567, and my email is johndoe@example.com. Looking forward to your prompt reply. Regards, John Doe",
