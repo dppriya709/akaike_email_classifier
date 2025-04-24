@@ -221,25 +221,6 @@ Fast UGI:http://127.0.0.1:8000/docs
 
 
 
-response:
-{
-  "input_email_body": "Important: KYC Update Please update your Aadhar number 1234-5678-9123 in the system.",
-  "list_of_masked_entities": [
-    {
-      "position": [55, 59],
-      "classification": "expiry_no",
-      "entity": "1234"
-    },
-    {
-      "position": [55, 69],
-      "classification": "aadhar_num",
-      "entity": "1234-5678-9123"
-    }
-  ],
-  "masked_email": "Important: KYC Update Please update your Aadhar number [expiry_no][aadhar_num] in the system.",
-  "category_of_the_email": "complaint"
-}
-
 
 Conclusion
 This system is a lightweight and production-ready solution for automating email triaging and PII protection in customer support communications. The API strictly adheres to the format required by Akaike Technologies for automated evaluation.
