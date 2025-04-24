@@ -216,7 +216,7 @@ Accepts email content and returns classification with PII masking. Request Body:
 
 Follow the instructions below to deploy the application on Hugging Face Spaces.
 hugging face deployements links:https://huggingface.co/spaces/priyaDP/akaike_email_classifier1
-Github repository:
+Github repository:https://github.com/dppriya709/akaike_email_classifier.git
 Fast UGI:http://127.0.0.1:8000/docs
 
 
